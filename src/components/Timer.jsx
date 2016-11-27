@@ -10,22 +10,50 @@ class Timer extends Component {
         super(props);
 
         this.state = {
-            start:  false,
-            minutes: "01",
-            seconds: "01",
-            milliseconds: "01"
+            start: false,
+            minutes: "00",
+            seconds: "00",
+            milliseconds: "00",
+            timeDivider: 1/60,
+            timerInterval: ''
         }
     }
 
     resetTime = () => {
-        
+
         this.setState({
             minutes: "00",
             seconds: "00",
-            milliseconds: "00"
+            milliseconds: "00",
+            timeDivider: 1/60,
+            start: false,
         });
-        
-    }
+        clearInterval(this.state.timerInterval);
+    };
+
+    startStop = () => {
+        this.setState({
+            start: !this.state.start
+        });
+
+        if (!this.state.start) {
+            this.setState({
+                timerInterval: setInterval(() => {
+                    this.setState({timeDivider: 1/60 + this.state.timeDivider});
+                    let timer = this.state.timeDivider;
+                    const milliseconds = Math.floor((timer - Math.floor(timer)) * 100);
+                    const seconds = Math.floor(timer) - Math.floor(timer / 60) * 60;
+                    const minutes = Math.floor(timer / 60);
+                    this.setState({ minutes: minutes >= 10 ? minutes : "0" + minutes,
+                        seconds: seconds >= 10 ? seconds : "0" + seconds,
+                        milliseconds: milliseconds >= 10 ? milliseconds : "0" + milliseconds,
+                    });
+                }, 1000 / 60)
+            });
+        } else {
+            clearInterval(this.state.timerInterval);
+        }
+    };
 
 
     render() {
@@ -35,8 +63,11 @@ class Timer extends Component {
                 <Time {...this.state} />
 
                 <div className="button-box">
-                    <StartStop />
-                    <Reset resetTime={this.resetTime}/>
+                    <StartStop
+                        startStop={this.startStop}
+                        start={this.state.start}
+                    />
+                    <Reset resetTime={this.resetTime} />
                 </div>
 
             </div>

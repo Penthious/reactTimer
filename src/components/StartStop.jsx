@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 
 class StartStop extends Component {
-    handleOnClick() {
-        
+    constructor(props){
+        super(props);
     }
+
+    handleOnClick = () => {
+        this.props.startStop();
+    };
+
     render() {
         return (
             <div className="StartStop" onClick={this.handleOnClick}>
-                Start
+                {this.props.start ? "Stop" : "Start"}
             </div>
         );
     }
