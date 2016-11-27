@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 
-class Time extends Component {
-    constructor(props) {
-        super(props);
-    } 
+const Time = props => (
+    <div className="Time">
+        <span>{props.minutes}</span>
+        <span>:</span>
+        <span>{props.seconds}</span>
+        <span>:</span>
+        <span>{props.milliseconds}</span>
+    </div>
+);
 
-    render() {
-        return (
-            <div className="Time">
-                <span>{this.props.minutes}</span>
-                <span>:</span>
-                <span>{this.props.seconds}</span>
-                <span>:</span>
-                <span>{this.props.milliseconds}</span>
-            </div>
-        );
-    }
-}
+Time.propTypes = {
+    minutes: PropTypes.string,
+    seconds: PropTypes.string,
+    milliseconds: PropTypes.string,
+};
 
 export default Time;

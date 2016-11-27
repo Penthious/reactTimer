@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class Reset extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     handleOnClick = () => {
         this.props.resetTime();
-    }
+    };
 
     render() {
         return (
-            <div className="Reset" 
-                 onClick={this.handleOnClick}>
-                Reset
+            <div className="Reset">
+                <button onClick={this.handleOnClick}>Reset</button>
             </div>
         );
     }
 }
+
+Reset.propTypes = {
+    resetTime: PropTypes.func.isRequired,
+};
 
 export default Reset;
