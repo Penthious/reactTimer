@@ -9,7 +9,7 @@ class StartStop extends Component {
         return (
             <div className="StartStop">
                 <button onClick={this.handleOnClick}>
-                    {this.props.start ? 'Stop' : 'Start'}
+                    {this.props.start ? 'Pause' : 'Start'}
                 </button>
 
             </div>
